@@ -1,21 +1,265 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentx</title>
+    <title>Center Ferramentas - Ferramentas, Elétrica, Hidráulica e Mais</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Topo Fixo -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> (34) 99197-5188</span>
+                <span><i class="fas fa-map-marker-alt"></i> Av. Juscelino Kubitschek, nº 596, Bairro Estudantil</span>
+            </div>
+            <button class="btn-register" onclick="openRegisterModal()">CADASTRE-SE AQUI</button>
+        </div>
+    </div>
 
-<div class="icon-bar">
-  <a class="active" href="#"><i class="fa fa-home"></i></a>
-  <a href="#"><i class="fa fa-search"></i></a>
-  <a href="#"><i class="fa fa-envelope"></i></a>
-  <a href="#"><i class="fa fa-globe"></i></a>
-  <a href="#"><i class="fa fa-trash"></i></a>
-</div>
-    
-    <h1 style="text-align:center;">Casa das Ferramentas e não sei mais o q</h1>
+    <!-- Navegação Principal (Sticky) -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1>CENTER FERRAMENTAS</h1>
+                    <span>Sua ferramenta ideal</span>
+                </div>
+
+                <!-- Barra de Pesquisa -->
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="searchProducts()">
+                    <button type="button" onclick="searchProducts()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <!-- Ícones do usuário -->
+                <div class="user-icons">
+                    <div class="icon-item">
+                        <i class="fas fa-user"></i>
+                        <span>Perfil</span>
+                    </div>
+                    <div class="icon-item cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Carrinho</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Carrossel de Slides -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <div class="carousel-slides" id="carouselSlides">
+                <div class="slide active">
+                    <div class="slide-content">
+                        <h2>PROMOÇÃO ESPECIAL</h2>
+                        <h3>Chave de Impacto 50% OFF</h3>
+                        <p>Aproveite nossa oferta imperdível em ferramentas de qualidade</p>
+                        <button class="btn-slide">VER OFERTAS</button>
+                    </div>
+                    <div class="slide-image">
+                        <img src="assets/images/slide1.jpg" alt="Chave de Impacto" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNoYXZlIGRlIEltcGFjdG88L3RleHQ+PC9zdmc+'">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>LINHA ELÉTRICA</h2>
+                        <h3>Até 20% de desconto</h3>
+                        <p>Materiais elétricos de primeira qualidade com preços especiais</p>
+                        <button class="btn-slide">CONFERIR</button>
+                    </div>
+                    <div class="slide-image">
+                        <img src="assets/images/slide2.jpg" alt="Materiais Elétricos" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1hdGVyaWFpcyBFbMOpdHJpY29zPC90ZXh0Pjwvc3ZnPg=='">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-content">
+                        <h2>HIDRÁULICA</h2>
+                        <h3>Produtos de qualidade</h3>
+                        <p>Tudo para suas instalações hidráulicas com garantia</p>
+                        <button class="btn-slide">EXPLORAR</button>
+                    </div>
+                    <div class="slide-image">
+                        <img src="assets/images/slide3.jpg" alt="Materiais Hidráulicos" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk1hdGVyaWFpcyBIaWRyw6F1bGljb3M8L3RleHQ+PC9zdmc+'">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Navegação do Carrossel -->
+            <div class="carousel-nav">
+                <button class="nav-btn prev" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-btn next" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Indicadores -->
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="currentSlide(1)"></span>
+                <span class="indicator" onclick="currentSlide(2)"></span>
+                <span class="indicator" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Categorias (Trapézios) -->
+    <section class="categories-section">
+        <div class="container">
+            <h2 class="section-title">NOSSAS CATEGORIAS</h2>
+            <div class="categories-grid">
+                <div class="category-trapezoid" onclick="openCategory('ferramentas-rotativas')">
+                    <div class="trapezoid-overlay"></div>
+                    <div class="trapezoid-content">
+                        <h3>FERRAMENTAS ROTATIVAS</h3>
+                        <p>Furadeiras, esmerilhadeiras e mais</p>
+                    </div>
+                </div>
+                <div class="category-trapezoid" onclick="openCategory('cones-bt')">
+                    <div class="trapezoid-overlay"></div>
+                    <div class="trapezoid-content">
+                        <h3>CONES BT</h3>
+                        <p>Cones e acessórios para usinagem</p>
+                    </div>
+                </div>
+                <div class="category-trapezoid" onclick="openCategory('instrumentos-precisao')">
+                    <div class="trapezoid-overlay"></div>
+                    <div class="trapezoid-content">
+                        <h3>INSTRUMENTOS DE PRECISÃO</h3>
+                        <p>Medição e controle de qualidade</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Produtos em Destaque -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title">PRODUTOS EM DESTAQUE</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Produtos serão carregados dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CENTER FERRAMENTAS</h3>
+                    <p>Há mais de 10 anos oferecendo as melhores ferramentas e materiais para profissionais e entusiastas. Nossa missão é fornecer produtos de qualidade com atendimento excepcional.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>CONTATO</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Av. Juscelino Kubitschek, nº 596<br>Bairro Estudantil</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(34) 99197-5188</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>centerferramentas01@gmail.com</span>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>REDES SOCIAIS</h4>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Center Ferramentas. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Cadastro -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>CADASTRE-SE</h2>
+                <span class="close" onclick="closeRegisterModal()">&times;</span>
+            </div>
+            <form id="registerForm" onsubmit="submitRegister(event)">
+                <div class="form-group">
+                    <label for="name">Nome Completo:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone:</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Endereço:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-submit">CADASTRAR</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Carrinho de Compras (Sidebar) -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>CARRINHO DE COMPRAS</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Itens do carrinho serão carregados dinamicamente -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total: R$ <span id="cartTotal">0,00</span></strong>
+            </div>
+            <button class="btn-checkout" onclick="checkout()">FINALIZAR COMPRA</button>
+        </div>
+    </div>
+
+    <!-- Overlay para modal e carrinho -->
+    <div id="overlay" class="overlay" onclick="closeModals()"></div>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
 </body>
 </html>
+

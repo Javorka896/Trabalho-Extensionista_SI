@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "name": "João Silva",
+    "phone": "(34) 99999-9999",
+    "email": "joao@email.com",
+    "address": "Rua das Flores, 123",
+    "cep": "38400-000",
+    "password": "123456",
+    "created_at": "2025-07-05T14:41:26.778461",
+    "active": true
+  }
+]

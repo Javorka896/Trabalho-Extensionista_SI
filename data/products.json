@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Furadeira de Impacto 750W",
+    "price": 299.9,
+    "image": "assets/images/furadeira.jpg",
+    "rating": 4,
+    "category": "ferramentas-rotativas",
+    "description": "Furadeira de impacto profissional com 750W de potência",
+    "stock": 13,
+    "brand": "Bosch",
+    "created_at": "2025-07-05T14:41:26.777981"
+  },
+  {
+    "id": 2,
+    "name": "Esmerilhadeira Angular 4.1/2\"",
+    "price": 189.9,
+    "image": "assets/images/esmerilhadeira.jpg",
+    "rating": 5,
+    "category": "ferramentas-rotativas",
+    "description": "Esmerilhadeira angular para corte e desbaste",
+    "stock": 8,
+    "brand": "Makita",
+    "created_at": "2025-07-05T14:41:26.778010"
+  },
+  {
+    "id": 3,
+    "name": "Chave de Impacto Pneumática",
+    "price": 450.0,
+    "image": "assets/images/chave-impacto.jpg",
+    "rating": 4,
+    "category": "ferramentas-rotativas",
+    "description": "Chave de impacto pneumática para uso profissional",
+    "stock": 5,
+    "brand": "Ingersoll Rand",
+    "created_at": "2025-07-05T14:41:26.778013"
+  },
+  {
+    "id": 4,
+    "name": "Cone BT40 ER32",
+    "price": 125.5,
+    "image": "assets/images/cone-bt40.jpg",
+    "rating": 5,
+    "category": "cones-bt",
+    "description": "Cone BT40 com pinça ER32 para usinagem",
+    "stock": 12,
+    "brand": "Sandvik",
+    "created_at": "2025-07-05T14:41:26.778015"
+  },
+  {
+    "id": 5,
+    "name": "Paquímetro Digital 150mm",
+    "price": 89.9,
+    "image": "assets/images/paquimetro.jpg",
+    "rating": 4,
+    "category": "instrumentos-precisao",
+    "description": "Paquímetro digital de alta precisão 150mm",
+    "stock": 19,
+    "brand": "Mitutoyo",
+    "created_at": "2025-07-05T14:41:26.778016"
+  },
+  {
+    "id": 6,
+    "name": "Micrômetro Externo 0-25mm",
+    "price": 156.0,
+    "image": "assets/images/micrometro.jpg",
+    "rating": 5,
+    "category": "instrumentos-precisao",
+    "description": "Micrômetro externo de precisão 0-25mm",
+    "stock": 10,
+    "brand": "Starrett",
+    "created_at": "2025-07-05T14:41:26.778018"
+  },
+  {
+    "id": 7,
+    "name": "Parafusadeira Elétrica 12V",
+    "price": 199.9,
+    "image": "assets/images/parafusadeira.jpg",
+    "rating": 4,
+    "category": "ferramentas-rotativas",
+    "description": "Parafusadeira elétrica sem fio 12V com bateria",
+    "stock": 18,
+    "brand": "DeWalt",
+    "created_at": "2025-07-05T14:41:26.778020"
+  },
+  {
+    "id": 8,
+    "name": "Relógio Comparador 0,01mm",
+    "price": 78.5,
+    "image": "assets/images/relogio-comparador.jpg",
+    "rating": 4,
+    "category": "instrumentos-precisao",
+    "description": "Relógio comparador de precisão 0,01mm",
+    "stock": 7,
+    "brand": "Mitutoyo",
+    "created_at": "2025-07-05T14:41:26.778021"
+  }
+]
