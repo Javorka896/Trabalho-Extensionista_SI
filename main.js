@@ -68,23 +68,29 @@ const products = [
 
 // Variáveis globais
 let currentSlide = 0;
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let slideInterval;
 
+console.log("main.js carregado!"); // Adicionado para depuração
+
 // Inicialização quando a página carrega
-document.addEventListener('DOMContentLoaded', function() {
-    loadProducts();
-    updateCartCount();
-    startCarousel();
-    
-    // Adicionar evento de scroll para efeitos
-    window.addEventListener('scroll', handleScroll);
+document.addEventListener("DOMContentLoaded", function() {
+    try {
+        loadProducts();
+        updateCartCount();
+        startCarousel();
+        
+        // Adicionar evento de scroll para efeitos
+        window.addEventListener("scroll", handleScroll);
+    } catch (e) {
+        console.error("Erro na inicialização do DOM:", e);
+    }
 });
 
 // Função para carregar produtos na página
 function loadProducts() {
-    const productsGrid = document.getElementById('productsGrid');
-    productsGrid.innerHTML = '';
+    const productsGrid = document.getElementById("productsGrid");
+    productsGrid.innerHTML = "";
     
     products.forEach(product => {
         const productCard = createProductCard(product);
@@ -94,19 +100,19 @@ function loadProducts() {
 
 // Função para criar card de produto
 function createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'product-card';
+    const card = document.createElement("div");
+    card.className = "product-card";
     
-    const stars = '★'.repeat(product.rating) + '☆'.repeat(5 - product.rating);
+    const stars = "★".repeat(product.rating) + "☆".repeat(5 - product.rating);
     
     card.innerHTML = `
         <div class="product-image">
             <img src="${product.image}" alt="${product.name}" 
-                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbSBkbyBQcm9kdXRvPC90ZXh0Pjwvc3ZnPg=='">
+                 onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjgwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlbSBkbyBQcm9kdXRvPC90ZXh0Pjwvc3ZnPg==\'">
         </div>
         <div class="product-info">
             <h3 class="product-name">${product.name}</h3>
-            <div class="product-price">R$ ${product.price.toFixed(2).replace('.', ',')}</div>
+            <div class="product-price">R$ ${product.price.toFixed(2).replace(".", ",")}</div>
             <div class="product-rating">
                 <span class="stars">${stars}</span>
                 <span class="rating-text">(${product.rating}/5)</span>
@@ -123,17 +129,18 @@ function createProductCard(product) {
 // Funções do Carrossel
 function startCarousel() {
     slideInterval = setInterval(() => {
-        changeSlide(1);
+        window.changeSlide(1);
     }, 5000);
 }
 
-function changeSlide(direction) {
-    const slides = document.querySelectorAll('.slide');
-    const indicators = document.querySelectorAll('.indicator');
+window.changeSlide = function(direction) {
+    console.log("changeSlide chamada! Direção: " + direction); // Adicionado para depuração
+    const slides = document.querySelectorAll(".slide");
+    const indicators = document.querySelectorAll(".indicator");
     
     // Remove classe active do slide atual
-    slides[currentSlide].classList.remove('active');
-    indicators[currentSlide].classList.remove('active');
+    slides[currentSlide].classList.remove("active");
+    indicators[currentSlide].classList.remove("active");
     
     // Calcula próximo slide
     currentSlide += direction;
@@ -145,11 +152,11 @@ function changeSlide(direction) {
     }
     
     // Adiciona classe active ao novo slide
-    slides[currentSlide].classList.add('active');
-    indicators[currentSlide].classList.add('active');
+    slides[currentSlide].classList.add("active");
+    indicators[currentSlide].classList.add("active");
     
     // Move o carrossel
-    const slideContainer = document.getElementById('carouselSlides');
+    const slideContainer = document.getElementById("carouselSlides");
     slideContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
     
     // Reinicia o timer automático
@@ -157,17 +164,18 @@ function changeSlide(direction) {
     startCarousel();
 }
 
-function currentSlide(n) {
+window.currentSlide = function(n) {
+    console.log("currentSlide chamada! Slide: " + n); // Adicionado para depuração
     const direction = n - 1 - currentSlide;
-    changeSlide(direction);
+    window.changeSlide(direction);
 }
 
 // Função de busca de produtos
 function searchProducts() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const productsGrid = document.getElementById('productsGrid');
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const productsGrid = document.getElementById("productsGrid");
     
-    if (searchTerm === '') {
+    if (searchTerm === "") {
         loadProducts();
         return;
     }
@@ -176,7 +184,7 @@ function searchProducts() {
         product.name.toLowerCase().includes(searchTerm)
     );
     
-    productsGrid.innerHTML = '';
+    productsGrid.innerHTML = "";
     
     if (filteredProducts.length === 0) {
         productsGrid.innerHTML = `
@@ -212,13 +220,13 @@ function addToCart(productId) {
     }
     
     updateCart();
-    showNotification('Produto adicionado ao carrinho!', 'success');
+    showNotification("Produto adicionado ao carrinho!", "success");
 }
 
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
     updateCart();
-    showNotification('Produto removido do carrinho!', 'info');
+    showNotification("Produto removido do carrinho!", "info");
 }
 
 function updateQuantity(productId, newQuantity) {
@@ -235,20 +243,20 @@ function updateQuantity(productId, newQuantity) {
 }
 
 function updateCart() {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     updateCartDisplay();
 }
 
 function updateCartCount() {
-    const cartCount = document.getElementById('cartCount');
+    const cartCount = document.getElementById("cartCount");
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCount.textContent = totalItems;
 }
 
 function updateCartDisplay() {
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
     
     if (cart.length === 0) {
         cartItems.innerHTML = `
@@ -258,26 +266,26 @@ function updateCartDisplay() {
                 <p>Adicione produtos para começar suas compras</p>
             </div>
         `;
-        cartTotal.textContent = '0,00';
+        cartTotal.textContent = "0,00";
         return;
     }
     
-    cartItems.innerHTML = '';
+    cartItems.innerHTML = "";
     let total = 0;
     
     cart.forEach(item => {
         total += item.price * item.quantity;
         
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
         cartItem.innerHTML = `
             <div class="cart-item-image">
                 <img src="${item.image}" alt="${item.name}" 
-                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWc8L3RleHQ+PC9zdmc+'">
+                     onerror="this.src=\'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWc8L3RleHQ+PC9zdmc+\\'">
             </div>
             <div class="cart-item-info">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-price">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
+                <div class="cart-item-price">R$ ${item.price.toFixed(2).replace(".", ",")}</div>
             </div>
             <div class="cart-item-controls">
                 <button class="qty-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
@@ -293,65 +301,65 @@ function updateCartDisplay() {
         cartItems.appendChild(cartItem);
     });
     
-    cartTotal.textContent = total.toFixed(2).replace('.', ',');
+    cartTotal.textContent = total.toFixed(2).replace(".", ",");
 }
 
 function toggleCart() {
-    const cartSidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('overlay');
+    const cartSidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("overlay");
     
-    cartSidebar.classList.toggle('open');
-    overlay.classList.toggle('active');
+    cartSidebar.classList.toggle("open");
+    overlay.classList.toggle("active");
     
-    if (cartSidebar.classList.contains('open')) {
+    if (cartSidebar.classList.contains("open")) {
         updateCartDisplay();
     }
 }
 
 function checkout() {
     if (cart.length === 0) {
-        showNotification('Carrinho vazio! Adicione produtos antes de finalizar.', 'warning');
+        showNotification("Carrinho vazio! Adicione produtos antes de finalizar.", "warning");
         return;
     }
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     
-    const message = `Finalizando compra:\n${itemCount} item(s)\nTotal: R$ ${total.toFixed(2).replace('.', ',')}`;
+    const message = `Finalizando compra:\n${itemCount} item(s)\nTotal: R$ ${total.toFixed(2).replace(".", ",")}`;
     
-    if (confirm(message + '\n\nDeseja continuar?')) {
+    if (confirm(message + "\n\nDeseja continuar?")) {
         // Simular processamento
-        showNotification('Processando pedido...', 'info');
+        showNotification("Processando pedido...", "info");
         
         setTimeout(() => {
             cart = [];
             updateCart();
             toggleCart();
-            showNotification('Pedido realizado com sucesso! Obrigado pela preferência.', 'success');
+            showNotification("Pedido realizado com sucesso! Obrigado pela preferência.", "success");
         }, 2000);
     }
 }
 
 // Funções do Modal de Cadastro
 function openRegisterModal() {
-    const modal = document.getElementById('registerModal');
-    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById("registerModal");
+    const overlay = document.getElementById("overlay");
     
-    modal.style.display = 'block';
-    overlay.classList.add('active');
+    modal.style.display = "block";
+    overlay.classList.add("active");
     
     // Foco no primeiro campo
     setTimeout(() => {
-        document.getElementById('name').focus();
+        document.getElementById("name").focus();
     }, 100);
 }
 
 function closeRegisterModal() {
-    const modal = document.getElementById('registerModal');
-    const overlay = document.getElementById('overlay');
+    const modal = document.getElementById("registerModal");
+    const overlay = document.getElementById("overlay");
     
-    modal.style.display = 'none';
-    overlay.classList.remove('active');
+    modal.style.display = "none";
+    overlay.classList.remove("active");
 }
 
 function submitRegister(event) {
@@ -359,18 +367,18 @@ function submitRegister(event) {
     
     const formData = new FormData(event.target);
     const userData = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        email: formData.get('email'),
-        address: formData.get('address'),
-        cep: formData.get('cep'),
-        password: formData.get('password')
+        name: formData.get("name"),
+        phone: formData.get("phone"),
+        email: formData.get("email"),
+        address: formData.get("address"),
+        cep: formData.get("cep"),
+        password: formData.get("password")
     };
     
     // Simular salvamento
-    localStorage.setItem('userData', JSON.stringify(userData));
+    localStorage.setItem("userData", JSON.stringify(userData));
     
-    showNotification('Cadastro realizado com sucesso!', 'success');
+    showNotification("Cadastro realizado com sucesso!", "success");
     closeRegisterModal();
     
     // Limpar formulário
@@ -382,19 +390,19 @@ function openCategory(category) {
     const categoryProducts = products.filter(product => product.category === category);
     
     if (categoryProducts.length === 0) {
-        showNotification('Categoria em desenvolvimento. Em breve novos produtos!', 'info');
+        showNotification("Categoria em desenvolvimento. Em breve novos produtos!", "info");
         return;
     }
     
     // Filtrar produtos por categoria
-    const productsGrid = document.getElementById('productsGrid');
-    productsGrid.innerHTML = '';
+    const productsGrid = document.getElementById("productsGrid");
+    productsGrid.innerHTML = "";
     
     // Adicionar título da categoria
-    const categoryTitle = document.createElement('div');
-    categoryTitle.style.gridColumn = '1 / -1';
-    categoryTitle.style.textAlign = 'center';
-    categoryTitle.style.marginBottom = '20px';
+    const categoryTitle = document.createElement("div");
+    categoryTitle.style.gridColumn = "1 / -1";
+    categoryTitle.style.textAlign = "center";
+    categoryTitle.style.marginBottom = "20px";
     categoryTitle.innerHTML = `
         <h2 style="color: #fd6101; font-size: 28px; text-transform: uppercase; margin-bottom: 10px;">
             ${getCategoryName(category)}
@@ -411,16 +419,16 @@ function openCategory(category) {
     });
     
     // Scroll para a seção de produtos
-    document.querySelector('.featured-products').scrollIntoView({ 
-        behavior: 'smooth' 
+    document.querySelector(".featured-products").scrollIntoView({ 
+        behavior: "smooth" 
     });
 }
 
 function getCategoryName(category) {
     const names = {
-        'ferramentas-rotativas': 'Ferramentas Rotativas',
-        'cones-bt': 'Cones BT',
-        'instrumentos-precisao': 'Instrumentos de Precisão'
+        "ferramentas-rotativas": "Ferramentas Rotativas",
+        "cones-bt": "Cones BT",
+        "instrumentos-precisao": "Instrumentos de Precisão"
     };
     return names[category] || category;
 }
@@ -429,28 +437,28 @@ function getCategoryName(category) {
 function closeModals() {
     closeRegisterModal();
     
-    const cartSidebar = document.getElementById('cartSidebar');
-    const overlay = document.getElementById('overlay');
+    const cartSidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("overlay");
     
-    cartSidebar.classList.remove('open');
-    overlay.classList.remove('active');
+    cartSidebar.classList.remove("open");
+    overlay.classList.remove("active");
 }
 
 // Função para mostrar notificações
-function showNotification(message, type = 'info') {
+function showNotification(message, type = "info") {
     // Remover notificação existente
-    const existingNotification = document.querySelector('.notification');
+    const existingNotification = document.querySelector(".notification");
     if (existingNotification) {
         existingNotification.remove();
     }
     
-    const notification = document.createElement('div');
+    const notification = document.createElement("div");
     notification.className = `notification ${type}`;
     notification.style.cssText = `
         position: fixed;
         top: 120px;
         right: 20px;
-        background: ${type === 'success' ? '#27ae60' : type === 'warning' ? '#f39c12' : type === 'error' ? '#e74c3c' : '#3498db'};
+        background: ${type === "success" ? "#27ae60" : type === "warning" ? "#f39c12" : type === "error" ? "#e74c3c" : "#3498db"};
         color: white;
         padding: 15px 20px;
         border-radius: 8px;
@@ -462,7 +470,7 @@ function showNotification(message, type = 'info') {
     `;
     
     notification.innerHTML = `
-        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
+        <i class="fas fa-${type === "success" ? "check-circle" : type === "warning" ? "exclamation-triangle" : type === "error" ? "times-circle" : "info-circle"}"></i>
         ${message}
     `;
     
@@ -470,7 +478,7 @@ function showNotification(message, type = 'info') {
     
     // Remover após 4 segundos
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease-in';
+        notification.style.animation = "slideOutRight 0.3s ease-in";
         setTimeout(() => {
             if (notification.parentNode) {
                 notification.remove();
@@ -480,7 +488,7 @@ function showNotification(message, type = 'info') {
 }
 
 // Adicionar animações CSS para notificações
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
     @keyframes slideInRight {
         from {
@@ -509,7 +517,7 @@ document.head.appendChild(style);
 // Função para lidar com scroll
 function handleScroll() {
     const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.carousel-section');
+    const parallax = document.querySelector(".carousel-section");
     
     if (parallax) {
         const speed = scrolled * 0.5;
@@ -517,20 +525,20 @@ function handleScroll() {
     }
     
     // Efeito de fade-in para elementos
-    const elements = document.querySelectorAll('.product-card, .category-trapezoid');
+    const elements = document.querySelectorAll(".product-card, .category-trapezoid");
     elements.forEach(element => {
         const elementTop = element.offsetTop;
         const elementVisible = 150;
         
         if (scrolled > elementTop - window.innerHeight + elementVisible) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
         }
     });
 }
 
 // Adicionar estilos para animações de scroll
-const scrollStyle = document.createElement('style');
+const scrollStyle = document.createElement("style");
 scrollStyle.textContent = `
     .product-card, .category-trapezoid {
         opacity: 0;
@@ -541,29 +549,29 @@ scrollStyle.textContent = `
 document.head.appendChild(scrollStyle);
 
 // Função para formatar CEP
-document.addEventListener('DOMContentLoaded', function() {
-    const cepInput = document.getElementById('cep');
+document.addEventListener("DOMContentLoaded", function() {
+    const cepInput = document.getElementById("cep");
     if (cepInput) {
-        cepInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
+        cepInput.addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, "");
             if (value.length > 5) {
-                value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+                value = value.replace(/^(\d{5})(\d)/, "$1-$2");
             }
             e.target.value = value;
         });
     }
     
     // Formatar telefone
-    const phoneInput = document.getElementById('phone');
+    const phoneInput = document.getElementById("phone");
     if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
+        phoneInput.addEventListener("input", function(e) {
+            let value = e.target.value.replace(/\D/g, "");
             if (value.length > 10) {
-                value = value.replace(/^(\d{2})(\d{5})(\d)/, '($1) $2-$3');
+                value = value.replace(/^(\d{2})(\d{5})(\d)/, "($1) $2-$3");
             } else if (value.length > 6) {
-                value = value.replace(/^(\d{2})(\d{4})(\d)/, '($1) $2-$3');
+                value = value.replace(/^(\d{2})(\d{4})(\d)/, "($1) $2-$3");
             } else if (value.length > 2) {
-                value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/^(\d{2})(\d)/, "($1) $2");
             }
             e.target.value = value;
         });
@@ -571,11 +579,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Função para busca em tempo real
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
+document.addEventListener("DOMContentLoaded", function() {
+    const searchInput = document.getElementById("searchInput");
     if (searchInput) {
         let searchTimeout;
-        searchInput.addEventListener('input', function() {
+        searchInput.addEventListener("input", function() {
             clearTimeout(searchTimeout);
             searchTimeout = setTimeout(searchProducts, 300);
         });
@@ -583,18 +591,21 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Prevenir zoom em dispositivos móveis
-document.addEventListener('touchstart', function(event) {
+document.addEventListener("touchstart", function(event) {
     if (event.touches.length > 1) {
         event.preventDefault();
     }
 });
 
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function(event) {
+document.addEventListener("touchend", function(event) {
     const now = (new Date()).getTime();
     if (now - lastTouchEnd <= 300) {
         event.preventDefault();
     }
     lastTouchEnd = now;
 }, false);
+
+
+
 

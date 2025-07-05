@@ -16,7 +16,7 @@
                 <span><i class="fas fa-phone"></i> (34) 99197-5188</span>
                 <span><i class="fas fa-map-marker-alt"></i> Av. Juscelino Kubitschek, nº 596, Bairro Estudantil</span>
             </div>
-            <button class="btn-register" onclick="openRegisterModal()">CADASTRE-SE AQUI</button>
+            <button class="btn-register" id="btnRegister">CADASTRE-SE AQUI</button>
         </div>
     </div>
 
@@ -32,8 +32,8 @@
 
                 <!-- Barra de Pesquisa -->
                 <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Buscar produtos..." onkeyup="searchProducts()">
-                    <button type="button" onclick="searchProducts()">
+                    <input type="text" id="searchInput" placeholder="Buscar produtos...">
+                    <button type="button" id="searchButton">
                         <i class="fas fa-search"></i>
                     </button>
                 </div>
@@ -44,7 +44,7 @@
                         <i class="fas fa-user"></i>
                         <span>Perfil</span>
                     </div>
-                    <div class="icon-item cart-icon" onclick="toggleCart()">
+                    <div class="icon-item cart-icon" id="cartIcon">
                         <i class="fas fa-shopping-cart"></i>
                         <span>Carrinho</span>
                         <span class="cart-count" id="cartCount">0</span>
@@ -66,7 +66,7 @@
                         <button class="btn-slide">VER OFERTAS</button>
                     </div>
                     <div class="slide-image">
-                        <img src="assets/images/slide1.jpg" alt="Chave de Impacto" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNoYXZlIGRlIEltcGFjdG88L3RleHQ+PC9zdmc+'">
+                        <img src="assets/images/Chave_de_impacto_ex.webp" alt="Chave de Impacto" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNoYXZlIGRlIEltcGFjdG88L3RleHQ+PC9zdmc+'">
                     </div>
                 </div>
                 <div class="slide">
@@ -95,19 +95,19 @@
             
             <!-- Navegação do Carrossel -->
             <div class="carousel-nav">
-                <button class="nav-btn prev" onclick="changeSlide(-1)">
+                <button class="nav-btn prev" id="prevSlideBtn">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button class="nav-btn next" onclick="changeSlide(1)">
+                <button class="nav-btn next" id="nextSlideBtn">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
             
             <!-- Indicadores -->
-            <div class="carousel-indicators">
-                <span class="indicator active" onclick="currentSlide(1)"></span>
-                <span class="indicator" onclick="currentSlide(2)"></span>
-                <span class="indicator" onclick="currentSlide(3)"></span>
+            <div class="carousel-indicators" id="carouselIndicators">
+                <span class="indicator active" data-slide-index="0"></span>
+                <span class="indicator" data-slide-index="1"></span>
+                <span class="indicator" data-slide-index="2"></span>
             </div>
         </div>
     </section>
@@ -117,21 +117,21 @@
         <div class="container">
             <h2 class="section-title">NOSSAS CATEGORIAS</h2>
             <div class="categories-grid">
-                <div class="category-trapezoid" onclick="openCategory('ferramentas-rotativas')">
+                <div class="category-trapezoid" id="catFerramentasRotativas">
                     <div class="trapezoid-overlay"></div>
                     <div class="trapezoid-content">
                         <h3>FERRAMENTAS ROTATIVAS</h3>
                         <p>Furadeiras, esmerilhadeiras e mais</p>
                     </div>
                 </div>
-                <div class="category-trapezoid" onclick="openCategory('cones-bt')">
+                <div class="category-trapezoid" id="catConesBT">
                     <div class="trapezoid-overlay"></div>
                     <div class="trapezoid-content">
                         <h3>CONES BT</h3>
                         <p>Cones e acessórios para usinagem</p>
                     </div>
                 </div>
-                <div class="category-trapezoid" onclick="openCategory('instrumentos-precisao')">
+                <div class="category-trapezoid" id="catInstrumentosPrecisao">
                     <div class="trapezoid-overlay"></div>
                     <div class="trapezoid-content">
                         <h3>INSTRUMENTOS DE PRECISÃO</h3>
@@ -180,10 +180,10 @@
                 <div class="footer-section">
                     <h4>REDES SOCIAIS</h4>
                     <div class="social-icons">
-                        <a href="#" class="social-icon instagram" onclick="window.location.href='https://www.instagram.com/centerferramentas'">
+                        <a href="#" class="social-icon instagram" id="socialInstagram">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-icon whatsapp" onclick="window.location.href='https://api.whatsapp.com/send?phone=5534991975188&text=Ol%C3%A1%20Center%20Ferramentas!%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es.'">
+                        <a href="#" class="social-icon whatsapp" id="socialWhatsapp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -201,9 +201,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>CADASTRE-SE</h2>
-                <span class="close" onclick="closeRegisterModal()">&times;</span>
+                <span class="close" id="closeRegisterModalBtn">&times;</span>
             </div>
-            <form id="registerForm" onsubmit="submitRegister(event)">
+            <form id="registerForm">
                 <div class="form-group">
                     <label for="name">Nome Completo:</label>
                     <input type="text" id="name" name="name" required>
@@ -237,7 +237,7 @@
     <div id="cartSidebar" class="cart-sidebar">
         <div class="cart-header">
             <h3>CARRINHO DE COMPRAS</h3>
-            <button class="close-cart" onclick="toggleCart()">
+            <button class="close-cart" id="closeCartBtn">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -248,15 +248,16 @@
             <div class="cart-total">
                 <strong>Total: R$ <span id="cartTotal">0,00</span></strong>
             </div>
-            <button class="btn-checkout" onclick="checkout()">FINALIZAR COMPRA</button>
+            <button class="btn-checkout" id="checkoutBtn">FINALIZAR COMPRA</button>
         </div>
     </div>
 
     <!-- Overlay para modal e carrinho -->
-    <div id="overlay" class="overlay" onclick="closeModals()"></div>
+    <div id="overlay" class="overlay"></div>
 
     <!-- Scripts -->
     <script src="main.js"></script>
 </body>
 </html>
+
 
